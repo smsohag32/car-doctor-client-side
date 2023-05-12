@@ -1,23 +1,29 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import img from "../../assets/images/login/login.svg";
 import { AuthContext } from "../../context/AuthProvider";
 import { useNavigate } from "react-router-dom";
 
 const Register = () => {
-  const { createUser } = useContext(AuthContext);
-  const navigate = useNavigate;
+  const { createAccount, userLogout } = useContext(AuthContext);
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
   const handleRegister = (e) => {
     e.preventDefault();
     const name = e.target.name.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
-
-    createUser(email, password)
+    if (!(name && email && password)) {
+      return setError("something went wrong");
+    }
+    createAccount(email, password)
       .then((result) => {
         const loggedUser = result.user;
+
         navigate("/login");
+        userLogout();
+        e.target.reset();
       })
-      .then((error) => console.log(error.message));
+      .catch((error) => console.log(error.message));
   };
   return (
     <div className="hero min-h-screen bg-base-200">
@@ -37,6 +43,7 @@ const Register = () => {
                 placeholder="Your name"
                 name="name"
                 className="input input-bordered"
+                required
               />
             </div>
             <div className="form-control">
@@ -48,6 +55,7 @@ const Register = () => {
                 placeholder="Your email"
                 name="email"
                 className="input input-bordered"
+                required
               />
             </div>
             <div className="form-control">
@@ -59,6 +67,7 @@ const Register = () => {
                 placeholder="password"
                 className="input input-bordered"
                 name="password"
+                required
               />
               {/* <label className="label">
                 <a href="#" className="label-text-alt link link-hover">

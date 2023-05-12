@@ -1,6 +1,14 @@
+import { useEffect, useState } from "react";
 import ServiceCart from "./ServiceCart";
 
 const Services = () => {
+  const [services, setServices] = useState([]);
+  useEffect(() => {
+    fetch("http://localhost:5000/services")
+      .then((res) => res.json())
+      .then((data) => setServices(data))
+      .catch((error) => console.log(error));
+  }, []);
   return (
     <div className="py-10">
       <div className="space-y-3 text-center">
@@ -13,7 +21,9 @@ const Services = () => {
         </p>
       </div>
       <div className="grid grid-cols-1 my-10 gap-7 md:grid-cols-2 xl:grid-cols-3">
-        <ServiceCart />
+        {services?.map((service) => (
+          <ServiceCart key={service._id} service={service} />
+        ))}
       </div>
       <p className="text-center">
         <button className="btn text-center mx-auto btn-secondary btn-outline">

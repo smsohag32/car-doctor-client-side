@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import img from "../../assets/images/login/login.svg";
 import { AuthContext } from "../../context/AuthProvider";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const { userLogin } = useContext(AuthContext);
@@ -15,7 +15,7 @@ const Login = () => {
         const loggedUser = result.user;
         navigate("/");
       })
-      .then((error) => console.log(error.message));
+      .catch((error) => console.log(error.message));
   };
   return (
     <div className="hero min-h-screen bg-base-200">
@@ -53,6 +53,14 @@ const Login = () => {
                 </a>
               </label>
             </div>
+            <p>
+              <small>Do not have and account </small>
+              <span>
+                <Link className="link link-secondary" to="/register">
+                  Sing up
+                </Link>
+              </span>
+            </p>
             <div className="form-control mt-6">
               <button className="btn btn-secondary">Login</button>
             </div>
