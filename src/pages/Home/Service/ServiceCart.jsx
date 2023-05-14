@@ -1,4 +1,5 @@
 import { AiOutlineArrowRight } from "react-icons/ai";
+import { Link } from "react-router-dom";
 const ServiceCart = ({ service }) => {
   const { _id, title, img, price } = service;
   return (
@@ -11,9 +12,11 @@ const ServiceCart = ({ service }) => {
           <h2 className="card-title">{title}</h2>
           <div className="card-actions justify-between items-center">
             <p className="text-primary font-bold">Price: {price}</p>
-            <button className="btn btn-secondary btn-outline">
-              <AiOutlineArrowRight />
-            </button>
+            <Link to={`/checkout/${_id}`}>
+              <button className="btn btn-secondary btn-outline">
+                <AiOutlineArrowRight />
+              </button>
+            </Link>
           </div>
         </div>
       </div>

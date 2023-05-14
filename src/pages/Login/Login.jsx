@@ -1,19 +1,20 @@
 import { useContext } from "react";
 import img from "../../assets/images/login/login.svg";
 import { AuthContext } from "../../context/AuthProvider";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const location = useLocation();
   const { userLogin } = useContext(AuthContext);
   const navigate = useNavigate();
+  const from = location.state?.from?.pathname || "/";
   const handleLogin = (e) => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
     userLogin(email, password)
       .then((result) => {
-        const loggedUser = result.user;
-        navigate("/");
+        navigate(from, { replace: true });
       })
       .catch((error) => console.log(error.message));
   };

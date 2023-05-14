@@ -31,6 +31,7 @@ const Navbar = () => {
           Services
         </NavLink>
       </li>
+
       <li>
         <NavLink
           className={({ isActive }) => (isActive ? "text-secondary" : "")}
@@ -47,8 +48,16 @@ const Navbar = () => {
           Contact
         </NavLink>
       </li>
-      {user ? (
+      {user?.email ? (
         <>
+          <li>
+            <NavLink
+              className={({ isActive }) => (isActive ? "text-secondary" : "")}
+              to="/mybookings"
+            >
+              My Bookings
+            </NavLink>
+          </li>
           <li>
             <button onClick={() => userLogout()}>Sing out</button>
           </li>
