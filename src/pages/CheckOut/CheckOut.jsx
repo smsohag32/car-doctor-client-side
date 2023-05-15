@@ -25,7 +25,7 @@ const CheckOut = () => {
       img,
     };
 
-    fetch(`http://localhost:5000/bookings`, {
+    fetch(`https://car-doctors-server-rho.vercel.app/bookings`, {
       method: "POST",
       headers: {
         "content-type": "application/json",

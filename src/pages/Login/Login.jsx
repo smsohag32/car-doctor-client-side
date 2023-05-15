@@ -14,7 +14,25 @@ const Login = () => {
     const password = e.target.password.value;
     userLogin(email, password)
       .then((result) => {
-        navigate(from, { replace: true });
+        const user = result.user;
+        const loggedUserEmail = {
+          email: user.email,
+        };
+
+        fetch(`http://localhost:5000/jwt`, {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(loggedUserEmail),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            // locatl storage is not best
+            localStorage.setItem("car-access-token", data.token);
+            console.log(data);
+            navigate(from, { replace: true });
+          });
       })
       .catch((error) => console.log(error.message));
   };

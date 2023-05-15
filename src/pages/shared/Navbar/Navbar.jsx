@@ -5,6 +5,13 @@ import { AuthContext } from "../../../context/AuthProvider";
 
 const Navbar = () => {
   const { user, userLogout } = useContext(AuthContext);
+  const handleUserLogout = () => {
+    userLogout()
+      .then(() => {
+        localStorage.removeItem("car-access-token");
+      })
+      .catch((error) => console.log(error));
+  };
   const navItems = (
     <>
       <li>

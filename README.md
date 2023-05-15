@@ -14,4 +14,4 @@ const firebaseConfig = {
 
 ```
 
-# query params http://localhost:5000/bookings?email=cadr@doctor.com
+# query params https://car-doctors-server-rho.vercel.app/bookings?email=cadr@doctor.com

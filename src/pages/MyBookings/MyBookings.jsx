@@ -8,7 +8,7 @@ const MyBookings = () => {
 
   const [bookings, setBookings] = useState([]);
 
-  const url = `http://localhost:5000/bookings?email=${user?.email}`;
+  const url = `https://car-doctors-server-rho.vercel.app/bookings?email=${user?.email}`;
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -22,7 +22,7 @@ const MyBookings = () => {
     }).then((result) => {
       console.log(result);
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/bookings/${id}`, {
+        fetch(`https://car-doctors-server-rho.vercel.app/bookings/${id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())
@@ -43,7 +43,7 @@ const MyBookings = () => {
     });
   };
   const handleConfirm = (id) => {
-    fetch(`http://localhost:5000/bookings/${id}`, {
+    fetch(`https://car-doctors-server-rho.vercel.app/bookings/${id}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",
