@@ -2,10 +2,11 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthProvider";
 import BookingRow from "./BookingRow";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const MyBookings = () => {
-  const { user } = useContext(AuthContext);
-
+  const { user, userLogout } = useContext(AuthContext);
+  const navigate = useNavigate();
   const [bookings, setBookings] = useState([]);
 
   const url = `https://car-doctors-server-rho.vercel.app/bookings?email=${user?.email}`;
@@ -63,12 +64,22 @@ const MyBookings = () => {
       });
   };
   useEffect(() => {
-    fetch(url)
+    fetch(url, {
+      method: "GET",
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("car-access-token")}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
+        console.log(data);
+        if (data.error) {
+          userLogout();
+          navigate("/login");
+        }
         setBookings(data);
       });
-  }, [url]);
+  }, [url, navigate, userLogout]);
   return (
     <div>
       <h3 className="text-center mb-6 font-bold text-3xl">

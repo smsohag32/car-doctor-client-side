@@ -2,6 +2,7 @@ import { useContext } from "react";
 import img from "../../assets/images/login/login.svg";
 import { AuthContext } from "../../context/AuthProvider";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import SocialLogin from "../shared/SocialLogin";
 
 const Login = () => {
   const location = useLocation();
@@ -13,26 +14,8 @@ const Login = () => {
     const email = e.target.email.value;
     const password = e.target.password.value;
     userLogin(email, password)
-      .then((result) => {
-        const user = result.user;
-        const loggedUserEmail = {
-          email: user.email,
-        };
-
-        fetch(`http://localhost:5000/jwt`, {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(loggedUserEmail),
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            // locatl storage is not best
-            localStorage.setItem("car-access-token", data.token);
-            console.log(data);
-            navigate(from, { replace: true });
-          });
+      .then(() => {
+        navigate(from, { replace: true });
       })
       .catch((error) => console.log(error.message));
   };
@@ -84,6 +67,7 @@ const Login = () => {
               <button className="btn btn-secondary">Login</button>
             </div>
           </form>
+          <SocialLogin />
         </div>
       </div>
     </div>
