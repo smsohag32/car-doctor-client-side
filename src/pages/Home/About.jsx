@@ -1,11 +1,19 @@
 import parts from "../../assets/images/about_us/parts.jpg";
 import person from "../../assets/images/about_us/person.jpg";
-
+import { saveAs } from "file-saver";
 const About = () => {
+  const handleDownload = () => {
+    saveAs(person, "person");
+  };
   return (
     <div className="flex py-10 mb-10 gap-6">
       <div className="w-full relative">
-        <img className="w-5/6" src={person} alt="person" />
+        <img
+          onClick={handleDownload}
+          className="w-5/6"
+          src={person}
+          alt="person"
+        />
         <img
           src={parts}
           className="w-1/2 top-1/2 right-0 border-8 z-50 border-stone-500 absolute"
